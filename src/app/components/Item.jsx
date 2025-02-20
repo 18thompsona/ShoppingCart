@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 
-function Item({image, title, description, price}) {
+function Item({image, title, description, price, id, AddToCart}) {
  
   return (
     <div className='item'>
@@ -11,7 +11,7 @@ function Item({image, title, description, price}) {
         <div className='item-info'>
             <h2>{title}</h2>
             <h3>${price}</h3>
-            <button>Add to Cart</button>
+            <button onClick={() => AddToCart(id)}>Add to Cart</button>
         </div>
     </div>
   )

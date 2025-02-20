@@ -6,7 +6,7 @@ function HomePage() {
   return (
     <div>
       <nav>
-        <h1 className='nav-name'>Shop Shopi</h1>
+        <h1 className='nav-name'>Shopi Shopi</h1>
         <ul className='nav-links'>
           <li> <Link to="/">Home</Link> </li>
           <li> <Link to="/Shop">Shop</Link> </li>

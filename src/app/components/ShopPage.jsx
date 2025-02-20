@@ -3,11 +3,13 @@ import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import Item from './Item';
+import CartItem from './CartItem';
 
 
 function ShopPage() {
   const [shopData, setShopData] = useState([]);
   const [cartData, setCartData] = useState([]);
+  const [showCart, setShowCart] = useState(false);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -16,36 +18,77 @@ function ShopPage() {
   },[])
 
   useEffect(() =>{
-    console.log(shopData);
+    console.log(shopData[0]);
   },[shopData])
+
+  function AddToCart(id){
+    let item = shopData.find(product => product.id === id);
+    setCartData((prevCart) => {
+      return [...prevCart, item];
+    })
+  }
+
+  function RemoveFromCart(id){
+    setCartData((prevCart) => {
+      let copy = [...prevCart];
+      let index = copy.findIndex(item => item.id === id);
+
+      if(index !== -1){
+        copy.splice(index, 1);
+      }
+      return copy;
+    })
+  }
+
+  function toggleShowCart(){
+    setShowCart(!showCart);
+  }
 
   return (
     <div>
       <nav>
-        <h1 className='nav-name'>Shop Shopi</h1>
+        <h1 className='nav-name'>Shopi Shopi</h1>
         <ul className='nav-links'>
           <li> <Link to="/">Home</Link> </li>
           <li> <Link to="/Shop">Shop</Link> </li>
         </ul>
-        <button className='nav-cart'>Cart</button>
+        <button className='nav-cart' onClick={() => toggleShowCart()}>Cart</button>
       </nav>
 
-      <main>
-        {/* <p>So, What Cha Buyin?</p> */}
-        <div className="listings">
-          {shopData.map((products, index) => (
-            <Item
+      {!showCart ? (
+        <main>
+          <div className="listings">
+            {shopData.map((product, index) => (
+              <Item
+                key={index}
+                image = {product.image}
+                title = {product.title}
+                description = {product.description}
+                price = {product.price}
+                id = {product.id}
+                AddToCart = {AddToCart}
+              />
+            ))}
+          </div>  
+        </main>        
+      ) : (
+        <div className="cartview">
+          {cartData.map((product, index) => (
+            <CartItem
               key={index}
-              image = {products.image}
-              title = {products.title}
-              description = {products.description}
-              price = {products.price}
+              image = {product.image}
+              title = {product.title}
+              description = {product.description}
+              price = {product.price}
+              id = {product.id}
+              RemoveFromCart = {RemoveFromCart}
             />
           ))}
+          <div className='breakline'></div>
+          Total: 
         </div>
-        
-      </main>
-
+        )
+      }
     </div>
   )
 }

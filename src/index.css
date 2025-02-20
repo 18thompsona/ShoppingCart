@@ -60,6 +60,7 @@ main{
 
 .listings{
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: .5em;
 }
@@ -81,5 +82,31 @@ main{
 }
 
 .item-info{
-    background-color: lightgray;
+    /* background-color: lightgray; */
+}
+
+.cart-item{
+    display: flex;
+    width: 80vw;
+    justify-content: space-around;
+}
+
+.cartview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.cart-item-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.breakline{
+    width: 80vw;
+    border: 1px solid black;
+    border-radius: 100px;
 }
