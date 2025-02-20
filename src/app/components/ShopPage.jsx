@@ -11,6 +11,8 @@ function ShopPage() {
   const [cartData, setCartData] = useState([]);
   const [showCart, setShowCart] = useState(false);
 
+  let totalCost = cartData.reduce((sum, product) => sum + product.price, 0).toFixed(2);
+
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
             .then(res=>res.json())
@@ -64,7 +66,7 @@ function ShopPage() {
                 image = {product.image}
                 title = {product.title}
                 description = {product.description}
-                price = {product.price}
+                price = {product.price.toFixed(2)}
                 id = {product.id}
                 AddToCart = {AddToCart}
               />
@@ -79,13 +81,13 @@ function ShopPage() {
               image = {product.image}
               title = {product.title}
               description = {product.description}
-              price = {product.price}
+              price = {product.price.toFixed(2)}
               id = {product.id}
               RemoveFromCart = {RemoveFromCart}
             />
           ))}
           <div className='breakline'></div>
-          Total: 
+          Total: ${totalCost}
         </div>
         )
       }
